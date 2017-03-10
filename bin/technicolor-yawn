@@ -96,6 +96,12 @@ def read_file(fileobj):
                 if message_buffer:
                     output_log(message_buffer)
                 message_buffer = [message_start_match]
+
+                # If the line is complete, immediately flush it
+                if line.endswith("\n"):
+                    output_log(message_buffer)
+                    message_buffer = []
+
             elif message_buffer:
                 message_buffer.append(line)
             else:
